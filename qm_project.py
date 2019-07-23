@@ -10,7 +10,21 @@ def orb(ao_index):
     return orbital_types[orb_index]
 
 def ao_index(atom_p, orb_p):
-    '''Returns the atomic orbital index for a given atom index and orbital type.'''
+    '''Returns the atomic orbital index for a given atom index and orbital type.
+    
+    Parameters
+    ----------
+    atom_p: int
+        Index of atom
+    orb_p: str
+        orbital type
+
+    Returns
+    -------
+    p: int
+        atomic orbital
+    '''
+        
     p = atom_p * orbitals_per_atom
     p += orbital_types.index(orb_p)
     return p
@@ -33,7 +47,23 @@ def hopping_energy(o1, o2, r12, model_parameters):
     return ans
 
 def coulomb_energy(o1, o2, r12):
-    '''Returns the Coulomb matrix element for a pair of multipoles of type o1 & o2 separated by a vector r12.'''
+    '''Returns the Coulomb matrix element for a pair of multipoles of type o1 & o2 separated by a vector r12.
+    
+    Parameters
+    ----------
+    o1: str
+        First multipole type
+    o2: str
+        Second multipole type
+    r12: np.array()
+        Difference vector between multipole coordinates
+    
+    Returns
+    -------
+    ans: float
+        Calculated coulomb matrix element for pair of multipoles
+    '''
+
     r12_length = np.linalg.norm(r12)
     if o1 == 's' and o2 == 's':
         ans = 1.0 / r12_length
