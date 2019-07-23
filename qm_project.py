@@ -247,7 +247,25 @@ def partition_orbitals(fock_matrix):
 
 def transform_interaction_tensor(occupied_matrix, virtual_matrix,
                                  interaction_matrix, chi_tensor):
-    '''Returns a transformed V tensor defined by the input occupied, virtual, & interaction matrices.'''
+    '''Returns a transformed V tensor defined by the input occupied, virtual, & interaction matrices.
+    
+    Parameters
+    ----------
+    occupied_matrix: np.array
+        occupied block of fock matrix
+    virtual_matrix: np.array
+        virtual block of fock matrix
+    interaction_matrix: np.array
+        interaction matrix of Hamiltonian
+    chi_tensor: np.array
+        Rank 3 tensor mapping of products of atomic orbitals to LC of terms in multipole expansion
+
+    Returns
+    -------
+    interaction_tensor: np.array
+        transformed V tensor defined by the input occupied, virtual, & interaction matrices
+        
+    '''
     chi2_tensor = np.einsum('qa,ri,qrp',
                             virtual_matrix,
                             occupied_matrix,
@@ -261,7 +279,23 @@ def transform_interaction_tensor(occupied_matrix, virtual_matrix,
     return interaction_tensor
 
 def calculate_energy_mp2(fock_matrix, interaction_matrix, chi_tensor):
-    '''Returns the MP2 contribution to the total energy defined by the input Fock & interaction matrices.'''
+    '''Returns the MP2 contribution to the total energy defined by the input Fock & interaction matrices.
+    
+    Parameters
+    ----------
+    fock_matrix: np.array
+        Fock matrix in hamiltonian
+    interaction_matrix: np.array
+        interaction matrix in hamiltonian
+    chi_tensor: np.array
+        Rank 3 tensor mapping of products of atomic orbitals to LC of terms in multipole expansion
+
+    Returns
+    -------
+    energy_mp2: float
+        MP2 energy defined by fock and interaction matrices
+    '''
+
     E_occ, E_virt, occupied_matrix, virtual_matrix = partition_orbitals(
         fock_matrix)
     V_tilde = transform_interaction_tensor(occupied_matrix, virtual_matrix,
