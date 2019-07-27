@@ -97,6 +97,7 @@ class MP2():
 
 
 
+
     def kernel():
         self.occupied_energy, self.virtual_energy, self.occupied_matrix, self.virtual_matrix = self.partition_orbitals(self.fock_matrix)
         self.interaction_tensor = self.transform_interaction_tensor(self.occupied_matrix,self.virtual_matrix,self.interaction_matrix,self.chi_tensor)
