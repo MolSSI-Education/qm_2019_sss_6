@@ -4,10 +4,6 @@ class MP2():
     def __init__(self,scf):
         self.scf = scf
 
-    @property 
-    def fock_matrix(self):
-    	return self.fock_matrix
-
     def partition_orbitals(self, fock_matrix):
     	'''Returns a list with the occupied/virtual energies & orbitals defined by the input Fock matrix.
     		Inputs
@@ -18,9 +14,9 @@ class MP2():
     		partioned orbitals : list
     		    occupied energy, virtual energy, occupied_matrix, virtual_matrix
     	'''
-    	num_occ = (ionic_charge // 2) * np.size(self.fock_matrix,
-    	                                        0) // self.orbitals_per_atom
-    	orbital_energy, orbital_matrix = np.linalg.eigh(self.fock_matrix)
+    	num_occ = (self.scf.ionic_charge // 2) * np.size(fock_matrix,
+    	                                        0) // self.scf.orbitals_per_atom
+    	orbital_energy, orbital_matrix = np.linalg.eigh(fock_matrix)
     	occupied_energy = orbital_energy[:num_occ]
     	virtual_energy = orbital_energy[num_occ:]
     	occupied_matrix = orbital_matrix[:, :num_occ]
@@ -76,12 +72,11 @@ class MP2():
         -------
         energy_mp2: float
             MP2 energy defined by fock and interaction matrices
-        E_occ, E_virt, occupied_matrix, virtual_matrix = partition_orbitals(
-            fock_matrix)
-        V_tilde = transform_interaction_tensor(occupied_matrix, virtual_matrix,
-                                               interaction_matrix, chi_tensor)
         '''
-    
+        E_occ, E_virt, occupied_matrix, virtual_matrix = self.partition_orbitals(
+            fock_matrix)
+        V_tilde = self.transform_interaction_tensor(occupied_matrix, virtual_matrix,
+                                               interaction_matrix, chi_tensor)
         energy_mp2 = 0.0
         num_occ = len(E_occ)
         num_virt = len(E_virt)
@@ -95,15 +90,9 @@ class MP2():
                             (E_virt[a] + E_virt[b] - E_occ[i] - E_occ[j]))
         return energy_mp2
 
-
-
-
-
-    def kernel():
-        self.occupied_energy, self.virtual_energy, self.occupied_matrix, self.virtual_matrix = self.partition_orbitals(self.fock_matrix)
-        self.interaction_tensor = self.transform_interaction_tensor(self.occupied_matrix,self.virtual_matrix,self.interaction_matrix,self.chi_tensor)
-        self.energy_mp2 = self.calculate_energy_mp2(self.fock_matrix, self.interaction_matrix, self.chi_tensor)
-        return total_mp2_energy
+    def kernel(self):
+        self.energy_mp2 = self.calculate_energy_mp2(self.scf.fock_matrix, self.scf.interaction_matrix, self.scf.chi_tensor)
+        return self.energy_mp2
 
 
 

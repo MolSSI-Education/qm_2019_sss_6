@@ -93,7 +93,7 @@ class NobleGasModel():
         ndof = len(atomic_coordinates) * self.orbitals_per_atom
         density_matrix = np.zeros((ndof, ndof))
         for p in range(ndof):
-            density_matrix[p, p] = self.orbital_occupation[orb(p)]
+            density_matrix[p, p] = self.orbital_occupation[self.orb(p)]
         return density_matrix
 
     def calculate_chi_tensor(self,atomic_coordinates, model_parameters):
@@ -103,12 +103,11 @@ class NobleGasModel():
         -----------
         atomic_coordinates : np.array, float
         model_parameters : dictionary
-        ndof : Number of degrees of freedom of the system, positive integer
-        chi_tensor : multidimensional array (related to vectors)
-        orb_q : key
-        orb_r : key
-        r = 
-        orbital_types: dictionary
+
+        Returns
+        -------
+        chi_tensor: np.array
+            Chi tensor for model system
     '''
 
         ndof = len(atomic_coordinates) * self.orbitals_per_atom
@@ -177,7 +176,6 @@ class NobleGasModel():
         ans: float
             Calculated coulomb matrix element for pair of multipoles
         '''
-
         r12_length = np.linalg.norm(r12)
         if o1 == 's' and o2 == 's':
             ans = 1.0 / r12_length
@@ -276,34 +274,3 @@ class NobleGasModel():
         self.density_matrix = self.calculate_atomic_density_matrix(self.atomic_coordinates)
         self.energy_ion = self.calculate_energy_ion(self.atomic_coordinates)
         return self.interaction_matrix,self.chi_tensor,self.hamiltonian_matrix,self.density_matrix,self.energy_ion
-
-
-if __name__ == "__main__":
-    ## --------------------
-    ## Noble Gas Parameters
-    ## --------------------
-    ionic_charge = 6
-    orbital_types = ['s', 'px', 'py', 'pz']
-    orbitals_per_atom = len(orbital_types)
-    p_orbitals = orbital_types[1:]
-    vec = {'px': [1, 0, 0], 'py': [0, 1, 0], 'pz': [0, 0, 1]}
-    orbital_occupation = { 's':0, 'px':1, 'py':1, 'pz':1 }    
-    # User input
-    atomic_coordinates = np.array([[0.0, 0.0, 0.0], [3.0, 4.0, 5.0]])
-    # Derived from user input
-    number_of_atoms = len(atomic_coordinates)
-    # Argon parameters - these would change for other noble gases.
-    model_parameters = {
-    'r_hop' : 3.1810226927827516,
-    't_ss' : 0.03365982238611262,
-    't_sp' : -0.029154833035109226,
-    't_pp1' : -0.0804163845390335,
-    't_pp2' : -0.01393611496959445,
-    'r_pseudo' : 2.60342991362958,
-    'v_pseudo' : 0.022972992186364977,
-    'dipole' : 2.781629275106456,
-    'energy_s' : 3.1659446174413004,
-    'energy_p' : -2.3926873325346554,
-    'coulomb_s' : 0.3603533286088998,
-    'coulomb_p' : -0.003267991835806299
-    }
