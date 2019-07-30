@@ -6,13 +6,13 @@ class MP2():
 
     def partition_orbitals(self, fock_matrix):
     	'''Returns a list with the occupied/virtual energies & orbitals defined by the input Fock matrix.
-    		Inputs
-    		------
+    	Parameters
+    	----------
     		fock_matrix : np.array
-    		Output
-    		------
+    	Returns
+        -------
     		partioned orbitals : list
-    		    occupied energy, virtual energy, occupied_matrix, virtual_matrix
+    		occupied energy, virtual energy, occupied_matrix, virtual_matrix
     	'''
     	num_occ = (self.scf.ionic_charge // 2) * np.size(fock_matrix,
     	                                        0) // self.scf.orbitals_per_atom

@@ -46,7 +46,7 @@ class scf():
         Returns
         -------
         If SCF converges, then returns modified density matrix and modified fock matrix.
-    """
+        """
         old_density_matrix = self.density_matrix.copy()
         for iteration in range(max_scf_iterations):
             fock_matrix = self.fast_fock_matrix(self.hamiltonian_matrix, self.interaction_matrix,
@@ -67,8 +67,8 @@ class scf():
     def calculate_energy_scf(self,hamiltonian_matrix,fock_matrix,density_matrix):
         '''Returns the Hartree-Fock total energy defined by the input Hamiltonian, Fock, & density matrices.
 
-        Inputs
-        ------
+        Parameters
+        ----------
         hamiltonian_matrix : np.array
 
         fock_matrix : np.array
@@ -76,8 +76,8 @@ class scf():
         density_matrix : np.array
 
 
-        Output
-        ------
+        Returns
+        -------
         energy_scf : float
             Hartree-Fock total energy
 
@@ -89,12 +89,12 @@ class scf():
     def calculate_density_matrix(self,fock_matrix):
         '''Returns the 1-electron density matrix defined by the input Fock matrix.
 
-            Parameters
-        ------------
+        Parameters
+        ----------
         fock_matrix : np.array
 
         Return
-        ------------
+        ------
         density_matrix : np.array
 
 
@@ -114,14 +114,14 @@ class scf():
         '''Returns the Fock matrix defined by the input Hamiltonian, interaction, & density matrices.
 
         Parameters
-        ------------
+        ----------
         hamiltonian_matrix : np.array
         interaction_matrix : np.array
         density_matrix : np.array
         chi_tensor : np.array
 
         Return
-        ------------
+        ------
         fock_matrix : np.array
 
         '''

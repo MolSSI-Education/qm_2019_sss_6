@@ -45,14 +45,14 @@ class NobleGasModel():
         '''Returns the 1-body Hamiltonian matrix for an input list of atomic coordinates.
 
         Parameters
-        -----------
+        ----------
         atomic_coordinates : np.array
             an array containing coordinates of atoms
         model_parameters : dict
             a dictionary that contains parameters in this semi-empirical model
 
         Return
-        -----------
+        ------
         hamiltonian_matrix : np.array
 
         '''
@@ -81,14 +81,15 @@ class NobleGasModel():
 
     def calculate_atomic_density_matrix(self,atomic_coordinates):
         '''Returns a trial 1-electron density matrix for an input list of atomic coordinates.
+      
         Parameters
-       ------------
-       atomic_coordinates : np.array
-        an array containing coordinates of atoms
+        ----------
+        atomic_coordinates : np.array
+            an array containing coordinates of atoms
        
-       Return
-       ------------
-       density_matrix : np.array
+        Return
+        ------
+        density_matrix : np.array
         '''
         ndof = len(atomic_coordinates) * self.orbitals_per_atom
         density_matrix = np.zeros((ndof, ndof))
@@ -100,7 +101,7 @@ class NobleGasModel():
         '''Returns the chi tensor for an input list of atomic coordinates
 
         Parameters
-        -----------
+        ----------
         atomic_coordinates : np.array, float
         model_parameters : dictionary
 
@@ -108,7 +109,7 @@ class NobleGasModel():
         -------
         chi_tensor: np.array
             Chi tensor for model system
-    '''
+        '''
 
         ndof = len(atomic_coordinates) * self.orbitals_per_atom
         chi_tensor = np.zeros((ndof, ndof, ndof))
@@ -124,14 +125,14 @@ class NobleGasModel():
     def calculate_interaction_matrix(self,atomic_coordinates, model_parameters):
         '''Returns the electron-electron interaction energy matrix for an input list of atomic coordinates.
 
-        Inputs
-        ------
+        Parameters
+        ----------
         atomic_coordinates : np.array
             an array that contains the coordinates of atoms
         model_parameters : dict
             a dictionary that contains parameters in this semi-empirical model
 
-        Outputs
+        Returns
         -------
         interaction_matrix : np.array
             an array that whose elements are electron-electron interaction energies
@@ -205,8 +206,8 @@ class NobleGasModel():
     def chi_on_atom(self,o1, o2, o3, model_parameters):
         '''Returns the value of the chi tensor for 3 orbital indices on the same atom.
 
-        Inputs
-        ------
+        Parameters
+        ----------
         o1 : string
             orbital type
         o2 : string
@@ -216,7 +217,7 @@ class NobleGasModel():
         model_parameters : dict
             a dictionary that contains parameters in this semi-empirical model
 
-        Outputs
+        Returns
         -------
         value of chi_tensor : float
         '''
@@ -239,7 +240,7 @@ class NobleGasModel():
             difference vector between atoms
 
         Return
-        -----------
+        ------
         pseudo_vector = np.array
             calcualte the pseudo energy
 

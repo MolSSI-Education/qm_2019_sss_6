@@ -3,13 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to qm_2019_sss_6's documentation!
-=========================================================
+Overview of qm_2019_sss_6
+=========================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   ng_model
+
+   scf 
+
+   mp2
 
 
 Indices and tables
