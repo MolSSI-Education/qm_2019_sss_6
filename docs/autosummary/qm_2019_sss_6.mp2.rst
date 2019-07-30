@@ -1,0 +1,22 @@
+qm\_2019\_sss\_6.mp2
+====================
+
+.. automodule:: qm_2019_sss_6.mp2
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      MP2
+   
+   
+
+   
+   
+   

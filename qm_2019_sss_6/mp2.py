@@ -91,6 +91,7 @@ class MP2():
         return energy_mp2
 
     def kernel(self):
+        ''' Executes the main function '''
         self.energy_mp2 = self.calculate_energy_mp2(self.scf.fock_matrix, self.scf.interaction_matrix, self.scf.chi_tensor)
         return self.energy_mp2
 

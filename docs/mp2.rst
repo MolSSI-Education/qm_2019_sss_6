@@ -1,12 +1,15 @@
-SCF Class Documnentation 
+MP2 Class Documnentation 
 ========================
 
-Data for definding an SCF Class
+Data for definding a MP2 Class
+=======
+
 
 .. autosummary::
 	:toctree: autosummary
 
-	qm_2019_sss_6.scf
+	qm_2019_sss_6.mp2.MP2
+=======
 
 
 

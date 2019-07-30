@@ -107,6 +107,7 @@ class scf():
         return density_matrix
     
     def fast_fock_matrix(self,hamiltonian_matrix,interaction_matrix,density_matrix):
+        '''Returns the Fock matrix defined by the input Hamiltonian, interaction, & density matrices.'''
         dipole = 2.781629275106456
         return ff.fast_fock_matrix(hamiltonian_matrix,interaction_matrix,density_matrix,dipole)
 
@@ -141,6 +142,7 @@ class scf():
         return fock_matrix
 
     def initialize(self):
+        ''' Creates the original Fock matrix and save it to the object '''
         #self.fock_matrix = self.calculate_fock_matrix(self.hamiltonian_matrix, self.interaction_matrix,
         #self.density_matrix, self.chi_tensor)
         self.fock_matrix = self.fast_fock_matrix(self.hamiltonian_matrix, self.interaction_matrix,
@@ -148,6 +150,7 @@ class scf():
         self.density_matrix = self.calculate_density_matrix(self.fock_matrix)
 
     def kernel(self):
+        ''' Executes the main function '''
         self.initialize()
         self.density_matrix, self.fock_matrix = self.scf_cycle()
         self.energy_scf = self.calculate_energy_scf(self.hamiltonian_matrix,self.fock_matrix,self.density_matrix)

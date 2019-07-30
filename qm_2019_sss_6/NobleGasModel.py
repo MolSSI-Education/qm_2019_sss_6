@@ -152,6 +152,18 @@ class NobleGasModel():
         return interaction_matrix
 
     def calculate_energy_ion(self,atomic_coordinates):
+        '''Returns the energy ion
+        
+        Parameters
+        ----------
+        atomic_coordinates : np.array, float
+        
+        Returns
+        -------
+        energy_ion : float
+            ion - ion energy in Hamiltonian. 
+
+        '''
         energy_ion = 0.0
         for i, r_i in enumerate(atomic_coordinates):
             for j, r_j in enumerate(atomic_coordinates):
@@ -191,6 +203,21 @@ class NobleGasModel():
         return ans
     
     def calculate_potential_vector(self,atomic_coordinates, model_parameters):
+        '''Returns the potential vector
+        
+        Parameters
+        ----------
+        atomic_coordinates : np.array, float
+        model_parameters : dict
+        a dictionary that contains parameters in this semi-empirical model
+
+        
+        Returns
+        -------
+        potential_vector : np.array
+            the vector of electron-ion interactions. 
+
+        '''
         ndof = len(atomic_coordinates) * self.orbitals_per_atom
         potential_vector = np.zeros(ndof)
         for p in range(ndof):
@@ -253,6 +280,24 @@ class NobleGasModel():
         return ans
     
     def hopping_energy(self,o1, o2, r12, model_parameters):
+        '''Returns the distance-dependent "hopping" energies that characterize the interatomic kinetic energy between s and p orbitals
+        
+        Parameters
+        ----------
+        o1 : string
+            orbital type
+        o2 : string
+            orbital type
+        o3 : string
+            orbital type
+        model_parameters : dict
+            a dictionary that contains parameters in this semi-empirical model        
+        Returns
+        -------
+        hopping_energy : np.array
+            distance-dependent "hopping" energies that characterize the interatomic kinetic energy between s and p orbitals 
+
+        '''
         r12_rescaled = r12 / model_parameters['r_hop']
         r12_length = np.linalg.norm(r12_rescaled)
         ans = np.exp( 1.0 - r12_length**2 )
@@ -269,6 +314,7 @@ class NobleGasModel():
         return ans
 
     def kernel(self):
+        ''' Executes the main function '''
         self.interaction_matrix = self.calculate_interaction_matrix(self.atomic_coordinates, self.model_parameters)
         self.chi_tensor=self.calculate_chi_tensor(self.atomic_coordinates, self.model_parameters)
         self.hamiltonian_matrix = self.calculate_hamiltonian_matrix(self.atomic_coordinates, self.model_parameters)
