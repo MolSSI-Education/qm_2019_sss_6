@@ -36,7 +36,8 @@ if sys.platform == 'darwin':
 cpp_module = Extension('qm_2019_sss_6.fock_fast',
                         include_dirs = [eigen_path],
                         extra_compile_args = ['-std=c++11'],
-                        sources = ['fock_fast/fock_fast.cpp'])
+                        sources = ['fock_fast/fock_fast.cpp',
+                        'fock_fast/export.cpp'])
 #################################################################
 
 setup(
