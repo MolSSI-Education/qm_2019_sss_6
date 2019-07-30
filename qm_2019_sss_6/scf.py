@@ -1,5 +1,5 @@
 import numpy as np
-import fock_fast as ff
+from . import fock_fast as ff
 
 class scf():
     def __init__(self,hamiltonian_matrix,interaction_matrix,density_matrix,chi_tensor,energy_ion,ionic_charge, orbitals_per_atom):

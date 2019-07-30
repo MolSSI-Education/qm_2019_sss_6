@@ -1,5 +1,4 @@
 #include <Eigen/Dense>
-#include <map>
 #include <algorithm>
 #include <vector>
 
