@@ -51,6 +51,8 @@ class scf():
         for iteration in range(max_scf_iterations):
             fock_matrix = self.fast_fock_matrix(self.hamiltonian_matrix, self.interaction_matrix,
         self.density_matrix)
+            #fock_matrix = self.calculate_fock_matrix(self.hamiltonian_matrix, self.interaction_matrix,
+        #self.density_matrix, self.chi_tensor)
             density_matrix = self.calculate_density_matrix(fock_matrix)
             error_norm = np.linalg.norm( old_density_matrix - density_matrix)
             if error_norm < convergence_tolerance:
@@ -107,7 +109,6 @@ class scf():
     def fast_fock_matrix(self,hamiltonian_matrix,interaction_matrix,density_matrix):
         dipole = 2.781629275106456
         return ff.fast_fock_matrix(hamiltonian_matrix,interaction_matrix,density_matrix,dipole)
-
 
     def calculate_fock_matrix(self,hamiltonian_matrix,interaction_matrix,density_matrix, chi_tensor):
         '''Returns the Fock matrix defined by the input Hamiltonian, interaction, & density matrices.

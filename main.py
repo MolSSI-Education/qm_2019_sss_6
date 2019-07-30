@@ -1,7 +1,7 @@
 import numpy as np
-from NobleGasModel import NobleGasModel
-from scf import scf
-from mp2 import MP2
+from qm_2019_sss_6.NobleGasModel import NobleGasModel
+from qm_2019_sss_6.scf import scf
+from qm_2019_sss_6.mp2 import MP2
 atomic_coordinates = np.array([[0.0, 0.0, 0.0], [3.0, 4.0, 5.0]])
 # Derived from user input
 number_of_atoms = len(atomic_coordinates)
