@@ -5,8 +5,10 @@ QM Group 6 MolSSI
 
 # Add imports here
 from .NobleGasModel import *
+from .fock_fast import *
 from .mp2 import MP2
 from .scf import scf
+
 
 # Handle versioneer
 from ._version import get_versions
