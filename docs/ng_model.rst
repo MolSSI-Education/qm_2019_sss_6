@@ -1,5 +1,5 @@
 Noble Gas Model Documnentation 
-======================
+==============================
 
 Data for definding a model 
 

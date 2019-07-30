@@ -1,0 +1,26 @@
+qm\_2019\_sss\_6.mp2.MP2
+========================
+
+.. currentmodule:: qm_2019_sss_6.mp2
+
+.. autoclass:: MP2
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MP2.__init__
+      ~MP2.calculate_energy_mp2
+      ~MP2.kernel
+      ~MP2.partition_orbitals
+      ~MP2.transform_interaction_tensor
+   
+   
+
+   
+   
+   
