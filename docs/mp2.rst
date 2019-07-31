@@ -1,15 +1,13 @@
-MP2 Class Documnentation 
+MP2
 ========================
 
-Data for definding a MP2 Class
-=======
-
+Class which performs second order Moller-Plesset Perturbation theory on a reference scf object. 
 
 .. autosummary::
 	:toctree: autosummary
 
 	qm_2019_sss_6.mp2.MP2
-=======
+
 
 
 

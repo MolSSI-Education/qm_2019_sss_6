@@ -1,0 +1,36 @@
+qm\_2019\_sss\_6.NobleGasModel.NobleGasModel
+============================================
+
+.. currentmodule:: qm_2019_sss_6.NobleGasModel
+
+.. autoclass:: NobleGasModel
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~NobleGasModel.__init__
+      ~NobleGasModel.ao_index
+      ~NobleGasModel.atom
+      ~NobleGasModel.calculate_atomic_density_matrix
+      ~NobleGasModel.calculate_chi_tensor
+      ~NobleGasModel.calculate_energy_ion
+      ~NobleGasModel.calculate_hamiltonian_matrix
+      ~NobleGasModel.calculate_interaction_matrix
+      ~NobleGasModel.calculate_potential_vector
+      ~NobleGasModel.chi_on_atom
+      ~NobleGasModel.coulomb_energy
+      ~NobleGasModel.hopping_energy
+      ~NobleGasModel.kernel
+      ~NobleGasModel.orb
+      ~NobleGasModel.pseudopotential_energy
+   
+   
+
+   
+   
+   

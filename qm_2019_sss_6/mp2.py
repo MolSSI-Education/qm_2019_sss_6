@@ -1,12 +1,22 @@
-import numpy as np 
+import numpy as np
 
 class MP2():
+    ''' Class for performing 2nd order Moller Plesset perturbation theory.
+    '''
     def __init__(self,scf):
+        '''Initialize MP2 object given scf reference.
+
+        Parameters
+        ----------
+        scf: qm_2019_sss_6.scf
+            scf object
+        '''
         self.scf = scf
 
     def partition_orbitals(self, fock_matrix):
     	'''Returns a list with the occupied/virtual energies & orbitals defined by the input Fock matrix.
-    	Parameters
+    	
+		Parameters
     	----------
     		fock_matrix : np.array
     	Returns
@@ -91,7 +101,13 @@ class MP2():
         return energy_mp2
 
     def kernel(self):
-        ''' Executes the main function '''
+        ''' Executes mp2 calculation and returns mp2 energy
+		
+		Returns
+		-------
+		energy_mp2: float
+			MP2 energy of system
+		'''
         self.energy_mp2 = self.calculate_energy_mp2(self.scf.fock_matrix, self.scf.interaction_matrix, self.scf.chi_tensor)
         return self.energy_mp2
 
