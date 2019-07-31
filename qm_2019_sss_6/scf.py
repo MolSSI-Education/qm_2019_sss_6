@@ -2,7 +2,28 @@ import numpy as np
 from . import fock_fast as ff
 
 class scf():
+    '''Class for performing SCF on a given system.
+    '''
     def __init__(self,hamiltonian_matrix,interaction_matrix,density_matrix,chi_tensor,energy_ion,ionic_charge, orbitals_per_atom):
+        '''Initialize scf object given relevant physical parameters.
+
+        Parameters
+        ----------
+        hamiltonian_matrix : np.array
+            initial hamiltonian matrix
+        interaction_matrix: ndarray
+            initial interaction matrix
+        density_matrix: ndarray
+            initial electron density matrix
+        chi_tensor: ndarray
+            initial chi tensor
+        energy_ion: float
+            nuclear-nuclear repulsion energy
+        ionic_charge: float
+            ionic charge of system
+        orbitals_per_atom: int
+            number of orbitals per atom
+        '''
         self.hamiltonian_matrix = hamiltonian_matrix
         self.interaction_matrix = interaction_matrix
         self.density_matrix = density_matrix
@@ -12,40 +33,28 @@ class scf():
         self.converged = False
         self.orbitals_per_atom = orbitals_per_atom
 
-    '''
-    @property
-    def fock_matrix(self):
-        return self.fock_matrix
-
-    @_fock_matrix.setter
-    def _fock_matrix(self, new_fock_matrix):
-        self.fock_matrix = new_fock_matrix
-
-    @property
-    def density_matrix(self):
-        return self.density_matrix
-
-    @_density_matrix.setter
-    def _density_matrix(self, new_density_matrix):
-        self.density_matrix = new_density_matrix
-    '''
-
     def scf_cycle(self, max_scf_iterations = 100,
                 mixing_fraction = 0.25, convergence_tolerance = 1e-4):
         """Returns converged density & Fock matrices defined by the input Hamiltonian, interaction, & density matrices.
 
         Parameters
         ----------
-        Initial Hamiltonian : np.array
-            Defines the initial orbital energy and phase space.
-        Interaction Matrix: ndarray
-            Defines the initial interaction between different atoms.
-        Density Matrix: ndarray
-            Defines the electron density on atoms.
-
+        max_scf_iterations: int, optional
+            max number of iterations for scf cycle
+        mixing fraction: float, optional
+            mixing fraction for scf cycle
+        convergence_tolerance: float, optional
+            threshold for which scf is converged
         Returns
         -------
-        If SCF converges, then returns modified density matrix and modified fock matrix.
+        density_matrix: ndarray
+            density matrix at end of procedure
+        fock_matrix: ndarray
+            fock matrix at end of procedure
+
+        Notes
+        ----
+        self.converged set to True if scf cycle converged
         """
         old_density_matrix = self.density_matrix.copy()
         for iteration in range(max_scf_iterations):
@@ -70,11 +79,11 @@ class scf():
         Parameters
         ----------
         hamiltonian_matrix : np.array
-
+            hamiltonian of system
         fock_matrix : np.array
-
+            fock matrix of system
         density_matrix : np.array
-
+            density matrix of system
 
         Returns
         -------
@@ -93,11 +102,9 @@ class scf():
         ----------
         fock_matrix : np.array
 
-        Return
+        Returns
         ------
         density_matrix : np.array
-
-
         '''
         num_occ = (self.ionic_charge // 2) * np.size(fock_matrix,
                                                 0) // self.orbitals_per_atom
@@ -107,12 +114,27 @@ class scf():
         return density_matrix
     
     def fast_fock_matrix(self,hamiltonian_matrix,interaction_matrix,density_matrix):
-        '''Returns the Fock matrix defined by the input Hamiltonian, interaction, & density matrices.'''
+        '''Returns the Fock matrix computed using c++ module.
+        
+        Parameters
+        ----------
+        hamiltonian_matrix : np.array
+            hamiltonian of system
+        interaction_matrix : np.array
+            interaction matrix of system
+        density_matrix : np.array
+            density matrix of system
+
+        Returns
+        -------
+        fock_matrix: np.array
+            fock matrix of system
+        '''
         dipole = 2.781629275106456
         return ff.fast_fock_matrix(hamiltonian_matrix,interaction_matrix,density_matrix,dipole)
 
     def calculate_fock_matrix(self,hamiltonian_matrix,interaction_matrix,density_matrix, chi_tensor):
-        '''Returns the Fock matrix defined by the input Hamiltonian, interaction, & density matrices.
+        '''Returns the Fock matrix using numpy einsum.
 
         Parameters
         ----------
@@ -142,7 +164,7 @@ class scf():
         return fock_matrix
 
     def initialize(self):
-        ''' Creates the original Fock matrix and save it to the object '''
+        ''' Creates and saves original fock matrix'''
         #self.fock_matrix = self.calculate_fock_matrix(self.hamiltonian_matrix, self.interaction_matrix,
         #self.density_matrix, self.chi_tensor)
         self.fock_matrix = self.fast_fock_matrix(self.hamiltonian_matrix, self.interaction_matrix,
@@ -150,7 +172,13 @@ class scf():
         self.density_matrix = self.calculate_density_matrix(self.fock_matrix)
 
     def kernel(self):
-        ''' Executes the main function '''
+        '''Executes scf cycle and return scf energy
+        
+        Returns
+        -------
+        total_energy: float
+            SCF energy of system
+        '''
         self.initialize()
         self.density_matrix, self.fock_matrix = self.scf_cycle()
         self.energy_scf = self.calculate_energy_scf(self.hamiltonian_matrix,self.fock_matrix,self.density_matrix)

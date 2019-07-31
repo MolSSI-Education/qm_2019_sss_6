@@ -1,8 +1,21 @@
 import numpy as np
-
 class NobleGasModel():
-
+    '''Class for generating chi tensor, hamiltonian, interaction, and density matrices using a semi-empirical model for noble gases.
+    '''
     def __init__(self,coords,params,ionic_charge,orbital_types,orbitals_per_atom,vec,orbital_occupation):
+        '''Initialize NobelGasModel object given parameters.
+        
+        Parameters
+        ----------
+        coords: list
+        params: dict
+        ionic_charge: int
+        orbital_types: dict
+        orbitals_per_atom: int
+        vec: dict
+        orbital_occupation: dict
+        
+        '''
         self.atomic_coordinates = coords
         self.model_parameters = params
         self.ionic_charge = ionic_charge
@@ -14,11 +27,30 @@ class NobleGasModel():
         self.number_of_atoms = len(self.atomic_coordinates)
  
     def atom(self,ao_index):
-        '''Returns the atom index part of an atomic orbital index.'''
+        '''Returns the atom index given an atomic orbital index
+        
+        Parameters
+        ----------
+        ao_index: int
+            atomic orbital index
+        Returns
+        -------
+        atom: int
+            index indicating which atom atomic orbital belongs to
+        '''
         return ao_index // self.orbitals_per_atom
 
     def orb(self,ao_index):
-        '''Returns the orbital type of an atomic orbital index.'''
+        '''Returns the orbital type given atomic orbital index
+        
+        Parameters
+        ----------
+        ao_index: int
+            atomic orbital index
+        Returns
+        orbital_type: str
+            String representatin of orbital type
+        '''
         orb_index = ao_index % self.orbitals_per_atom
         return self.orbital_types[orb_index]
 
@@ -314,7 +346,18 @@ class NobleGasModel():
         return ans
 
     def kernel(self):
-        ''' Executes the main function '''
+        '''Generations interaction matrix, chi tensor, density matrix, hamiltonian matrix, and n-n repulsion energy from 
+        given parameters and returns them.
+        
+        Returns
+        -------
+        interaction_matrix: np.array
+        chi_tensor: np.array
+        hamiltonian_matrix: np.array
+        denisty_matrix: np.array
+        energy_ion: float
+            nuclear nuclear repulsion energy
+        '''
         self.interaction_matrix = self.calculate_interaction_matrix(self.atomic_coordinates, self.model_parameters)
         self.chi_tensor=self.calculate_chi_tensor(self.atomic_coordinates, self.model_parameters)
         self.hamiltonian_matrix = self.calculate_hamiltonian_matrix(self.atomic_coordinates, self.model_parameters)
