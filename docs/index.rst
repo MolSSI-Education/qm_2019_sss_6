@@ -6,10 +6,12 @@
 Overview of qm_2019_sss_6
 =========================
 
+.. image:: classDiagram.png 
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
+   
    ng_model
 
    scf 
