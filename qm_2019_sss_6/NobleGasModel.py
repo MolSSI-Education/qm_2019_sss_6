@@ -8,12 +8,19 @@ class NobleGasModel():
         Parameters
         ----------
         coords: list
+            atom coordinates
         params: dict
+            noble gas parameters
         ionic_charge: int
-        orbital_types: dict
+            charge of system
+        orbital_types: list
+            dictionary for orbital types of system
         orbitals_per_atom: int
+            orbitals per atom in system
         vec: dict
+            dictionary for vectors corresponding to p orbitals
         orbital_occupation: dict
+            dictionary for orbital occupations
         
         '''
         self.atomic_coordinates = coords
