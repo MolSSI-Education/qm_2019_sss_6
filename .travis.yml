@@ -30,6 +30,7 @@ before_install:
     # Install the Python environment
   - source devtools/travis-ci/before_install.sh
   - python -V
+  - numpy 
 
 install:
     conda install eigen
