@@ -34,10 +34,10 @@ before_install:
 install:
     # Create test environment for package
   - python devtools/scripts/create_conda_env.py -n=test -p=$PYTHON_VER devtools/conda-envs/test_env.yaml
-  - conda install eigen
-  - conda install numpy
     # Activate the test environment
   - conda activate test
+  - conda install eigen
+  - conda install numpy
     # Build and install package
   - python setup.py develop --no-deps
 
